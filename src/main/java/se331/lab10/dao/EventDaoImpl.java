@@ -11,8 +11,8 @@ import org.springframework.data.domain.Pageable;
 
 @Repository
 @RequiredArgsConstructor
-@Profile("db")
-public class EventDaoDbImpl implements EventDao {
+@Profile("mem")
+public class EventDaoImpl implements EventDao {
     final EventRepository eventRepository;
 
     @Override
@@ -29,7 +29,7 @@ public class EventDaoDbImpl implements EventDao {
 
     @Override
     public Page<Event> getEvents(String title, Pageable page) {
-        return eventRepository.findByTitleContaining(title, page);
+        return eventRepository.findByTitleContainingAndDescriptionContaining(title, title, page);
     }
 
     @Override
